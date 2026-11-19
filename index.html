@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>발표 대본</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #f3f5f2; --panel: #ffffff; --fg: #18222d; --muted: #5d6a75; --line: #d6ddd7;
+  --accent: #d9480f; --link: #1b6f8f; --scrim: rgba(10, 14, 18, 0.45);
+  --font: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #12171c; --panel: #1a2128; --fg: #e5eaee; --muted: #9aa6b0; --line: #2c353d; --accent: #ff7a3d; --link: #4fb3d9; --scrim: rgba(0,0,0,0.6); color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #12171c; --panel: #1a2128; --fg: #e5eaee; --muted: #9aa6b0; --line: #2c353d; --accent: #ff7a3d; --link: #4fb3d9; --scrim: rgba(0,0,0,0.6); color-scheme: dark; }
+* { box-sizing: border-box; }
+html { scroll-padding-top: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 17px; line-height: 1.75; }
+.wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; max-width: 1180px; margin: 0 auto;
+  padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+nav.toc { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow-y: auto; font-size: 14px; }
+nav.toc ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+nav.toc li.tp { margin-top: 12px; font-weight: 600; color: var(--accent); font-size: 13px; }
+nav.toc li.ts { padding-left: 10px; }
+nav.toc a { color: var(--fg); text-decoration: none; display: block; padding: 2px 6px; border-radius: 4px; }
+nav.toc a:hover { background: var(--panel); }
+nav.toc .tools { display: flex; gap: 6px; margin-bottom: 10px; }
+button, .btn { font: 500 13px var(--font); border: 1px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 6px; padding: 5px 10px; cursor: pointer; text-decoration: none; }
+main { min-width: 0; }
+h1 { font-size: 30px; margin: 0 0 8px; }
+.intro { color: var(--muted); font-size: 15px; }
+h2.part { font-size: 22px; margin: 44px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--accent); }
+.slide-s { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 22px; margin: 14px 0; }
+.slide-s.plain { background: transparent; }
+.slide-s header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.slide-s h3 { margin: 0; font-size: 19px; }
+.badge { font: 500 13px var(--mono); color: #fff; background: var(--accent); border-radius: 4px; padding: 1px 7px; }
+.time { font-size: 13px; color: var(--muted); }
+.go { margin-left: auto; font-size: 13px; color: var(--link); text-decoration: none; }
+p { margin: 8px 0; }
+ul { margin: 6px 0; padding-left: 1.2em; }
+li.sub { margin-left: 1.2em; list-style: circle; }
+li.ans { list-style: none; color: var(--muted); margin-bottom: 6px; }
+sup.fn { font-size: 0.68em; line-height: 0; }
+sup.fn a { color: var(--link); text-decoration: none; font-weight: 600; padding: 0 1px; }
+sup.fn a:hover, sup.fn a:focus-visible { text-decoration: underline; }
+.fnlist { columns: 2; font-size: 14px; list-style: none; padding: 0; }
+.fnlist a { color: var(--link); text-decoration: none; }
+:target { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 각주 팝업 (위키 각주처럼) */
+#pop[hidden] { display: none; }
+#pop { position: fixed; inset: 0; background: var(--scrim); display: flex; align-items: center; justify-content: center; z-index: 10;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+#pop .card { background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; width: min(720px, 100%); max-height: 80vh; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+#pop .inner { padding: 18px 22px; overflow-y: auto; }
+#pop .cat { font-size: 12px; color: var(--accent); font-weight: 600; }
+#pop h4 { margin: 2px 0 8px; font-size: 18px; }
+#pop .inner p { margin: 6px 0; font-size: 15.5px; }
+#pop .close { border: none; border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; padding: 12px; font-size: 15px; width: 100%; }
+@media (max-width: 800px) { .wrap { grid-template-columns: 1fr; } nav.toc { position: static; max-height: none; } .fnlist { columns: 1; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="toc" aria-label="목차">
+    <div class="tools">
+      <a class="btn" href="https://two025240014-jimin-ml.onrender.com/" target="slides">슬라이드 ↗</a>
+      <button id="theme" type="button">테마</button>
+    </div>
+    <ul><li><a href="#s1">1 표지</a></li>
+<li class="tp">개요</li>
+<li><a href="#s2">2 논문 요약</a></li>
+<li class="tp">1부. 논문 선택 이유</li>
+<li><a href="#s3">3 논문을 고른 이유</a></li>
+<li class="tp">2부. 독창성</li>
+<li><a href="#s4">4 배경</a></li>
+<li><a href="#s5">5 기존 방법과 비교</a></li>
+<li><a href="#s6">6 독창성</a></li>
+<li class="tp">3부. 모델</li>
+<li><a href="#s7">7 DMN</a></li>
+<li><a href="#s8">8 이 모델을 사용한 이유</a></li>
+<li><a href="#s9">9 디코더</a></li>
+<li class="tp">4부. 파이프라인</li>
+<li><a href="#s10">10 학습 파이프라인</a></li>
+<li><a href="#s11">11 파이프라인의 특징</a></li>
+<li class="tp">5부. 결과</li>
+<li><a href="#s12">12 평가 방법</a></li>
+<li><a href="#s13">13 T4/T5 방향 선택성</a></li>
+<li><a href="#s14">14 앙상블과 모델 선택</a></li>
+<li><a href="#s15">15 측정되지 않은 세포에 대한 예측</a></li>
+<li class="tp">6부. 한계와 극복 아이디어</li>
+<li><a href="#s16">16 논문의 한계</a></li>
+<li><a href="#s17">17 가상 뇌에서 섞인 신호 디코딩</a></li>
+<li><a href="#s18">18 디코딩 결과</a></li>
+<li class="tp">추가와 마무리</li>
+<li><a href="#s19">19 공개 모델로 T4/T5 결과 재현</a></li>
+<li><a href="#s20">20 정리</a></li>
+<li><a href="#s21">21 참고문헌</a></li>
+<li class="tp">부록 (질문이 나오면)</li>
+<li><a href="#s22">22 부록 A</a></li>
+<li><a href="#s23">23 부록 B</a></li>
+<li><a href="#s24">24 부록 C</a></li>
+<li><a href="#s25">25 부록 D</a></li>
+<li><a href="#s26">26 부록 E</a></li>
+<li><a href="#s27">27 부록 F</a></li>
+<li><a href="#s28">28 부록 G</a></li>
+<li class="tp">논문 실험 상세</li>
+<li class="ts"><a href="#x33">실험 1. 깜빡임 자극 — ON/OFF 극성</a></li>
+<li class="ts"><a href="#x34">실험 2. 움직이는 가장자리 — 방향 선택성</a></li>
+<li class="ts"><a href="#x35">실험 3. 앙상블 분석 — 해의 다양성과 모델 선택</a></li>
+<li class="ts"><a href="#x36">실험 4. 측정되지 않은 세포 예측</a></li>
+<li class="tp">예상 질문과 답</li><li class="tp"><a href="#fns">각주 용어 목록</a></li></ul>
+  </nav>
+  <main>
+    <h1>발표 대본</h1>
+    <div class="intro"><p>발표 사이트(site/index.html) 슬라이드 순서와 같다. 본편 21장 + 질문 대비 부록 7장.<br>예상 시간: 본편 약 18–20분 (슬라이드별 시간은 대략).<br>15분 발표일 때 권장 배분: 1·2부 3분 / 3부 모델 4분 / 4부 파이프라인 3분 / 5부 결과 3분 / 6부 한계·추가 실험 2분.<br>줄일 곳: 2번 요약은 한 문장만, 4번 배경과 14번 앙상블은 핵심만, 17·18번 추가 실험은 18번 결과만, 19번 재현은 생략 가능. 부록은 질문 대응용.<br>용어 설명은 용어정리.txt 참고.</p>
+<p>숫자 출처</p>
+<ul>
+<li>모델 구조·학습 설정: flyvis 코드와 사전학습 모델 설정 파일에서 직접 확인</li>
+<li>비교 대상 세포 유형 수: flyvis에 들어 있는 비교용 실측 데이터(groundtruth_utils)에서 직접 셈</li>
+<li>재현·추가 실험 숫자: 이 저장소에서 직접 계산 (results/summary.md)</li>
+</ul><p>파란 [번호]를 누르면 용어 설명이 뜹니다. 각 구간 오른쪽 위 "슬라이드 열기"는 해당 슬라이드로 이동합니다.</p></div>
+    <section class="slide-s" id="s1"><header><span class="badge">1번</span><h3>표지</h3><span class="time">30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s1" target="slides">슬라이드 열기 ↗</a></header><p>발표할 논문은 2024년 Nature에 실린 &quot;Connectome-constrained networks predict neural activity across the fly visual system&quot;입니다. 초파리의 뇌 배선도, 즉 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>으로 구조를 정한 신경망을 학습시켜서 초파리 시각계 뉴런의 활동을 예측한 연구입니다.<br>순서는 논문을 고른 이유, 독창성, 사용한 모델, 학습 파이프라인, 결과, 그리고 한계와 극복 아이디어 순으로 진행하겠습니다.</p></section>
+<h2 class="part" id="p-1">개요</h2>
+<section class="slide-s" id="s2"><header><span class="badge">2번</span><h3>논문 요약</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s2" target="slides">슬라이드 열기 ↗</a></header><p>먼저 논문을 한 문장으로 요약하면, 실제 초파리 시각계의 연결 구조를 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>의 구조적 제약으로 쓰고, 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup> 예측이라는 지도학습<sup class="fn"><a href="#" data-g="70">[4]</a></sup> 과제로 학습한 다음, 학습된 뉴런들의 반응이 실제 생물학적 관측과 얼마나 맞는지 검증한 연구입니다.<br>문제는 뉴런 측정 데이터 없이 개별 뉴런의 반응 특성을 예측할 수 있느냐이고, 모델은 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup> 기반 RNN, 학습은 광류 예측 지도학습과 BPTT<sup class="fn"><a href="#" data-g="45">[5]</a></sup>, 평가는 실제 측정과의 비교와 50개 모델 분석입니다.<br>머신러닝 관점에서 핵심 개념은 귀납적 편향<sup class="fn"><a href="#" data-g="31">[6]</a></sup>, 파라미터 공유<sup class="fn"><a href="#" data-g="30">[7]</a></sup>, RNN, BPTT, 일반화<sup class="fn"><a href="#" data-g="64">[8]</a></sup> 다섯 가지이고, 발표 중에 이 순서대로 나옵니다.</p></section>
+<h2 class="part" id="p-3">1부. 논문 선택 이유</h2>
+<section class="slide-s" id="s3"><header><span class="badge">3번</span><h3>논문을 고른 이유</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s3" target="slides">슬라이드 열기 ↗</a></header><p>오픈소스 프로젝트들을 보다가 초파리 뇌 전체의 연결 지도, 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>이 공개됐다는 걸 알게 됐습니다. 그 지도를 가지고 초파리 뇌 모델에 게임을 시키는 것 같은 실험들이 진행되고 있었고, 관련 논문을 찾다가 이 논문을 보게 됐습니다.<br>읽어 보니 수업에서 배운 내용과 겹치는 부분이 많았습니다. 오른쪽 표처럼 모델 자체가 ReLU를 쓰는 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>이고, 역전파<sup class="fn"><a href="#" data-g="44">[9]</a></sup>와 경사 하강법<sup class="fn"><a href="#" data-g="46">[10]</a></sup>으로 학습하고, CNN<sup class="fn"><a href="#" data-g="65">[11]</a></sup>의 가중치 공유와 같은 아이디어를 쓰고, 검증 손실<sup class="fn"><a href="#" data-g="50">[12]</a></sup>로 모델을 고릅니다. 마지막 줄의 EEG<sup class="fn"><a href="#" data-g="72">[13]</a></sup>와 신호처리는 뒤에서 한계를 다룰 때 연결하겠습니다.</p></section>
+<h2 class="part" id="p-5">2부. 독창성</h2>
+<section class="slide-s" id="s4"><header><span class="badge">4번</span><h3>배경</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s4" target="slides">슬라이드 열기 ↗</a></header><p>커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>은 뉴런끼리 연결되어 있는지, 시냅스가 몇 개인지를 알려 줍니다. 흥분성인지 억제성인지는 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>의 신경전달물질 정보로 추정해서 붙입니다. 그런데 뉴런이 실제로 어떻게 활동하는지 계산하려면 각 뉴런이 얼마나 빨리 반응하는지, 쉬고 있을 때 전압은 얼마인지, 연결이 실제로 얼마나 센지도 알아야 합니다. 이건 배선도만 봐서는 알 수 없습니다.<br>지금까지는 이 값을 채우려면 세포마다 직접 전극이나 칼슘 이미징<sup class="fn"><a href="#" data-g="9">[15]</a></sup>으로 측정하거나, 측정한 데이터에 모델을 맞추는 방법을 썼습니다. 하지만 측정은 세포 유형 하나하나 해야 하고, 작은 세포는 기록 자체가 어렵습니다. 이 모델에 들어간 세포 유형 57개(광수용체<sup class="fn"><a href="#" data-g="14">[16]</a></sup> 제외, 모델 기준) 중에서 밝음과 어두움 중 무엇에 반응하는지 실험으로 알려진 것도 24개뿐입니다.<br>그래서 이 논문은 측정 없이 커넥톰과 이 회로가 하는 일만으로 개별 뉴런의 활동을 예측할 수 있는지를 묻습니다.</p></section>
+<section class="slide-s" id="s5"><header><span class="badge">5번</span><h3>기존 방법과 비교</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s5" target="slides">슬라이드 열기 ↗</a></header><p>기존 접근 두 가지와 비교했습니다.<br>첫 번째는 측정 데이터에 맞춘 모델입니다. 학습에 측정 데이터가 필요하고, 측정된 세포에만 쓸 수 있습니다.<br>두 번째는 과제 기반 딥러닝입니다. 예를 들어 물체 인식을 학습한 CNN<sup class="fn"><a href="#" data-g="65">[11]</a></sup>의 내부 표현을 원숭이 시각피질 활동과 비교하는 연구들입니다. 측정 데이터 없이 학습한다는 점은 이 논문과 같지만, CNN의 유닛이 실제 어떤 뉴런인지 대응이 없어서 뇌 영역 전체 수준으로만 비교할 수 있습니다.<br>이 논문의 모델은 구조 자체가 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>이라서 모델 뉴런 하나가 실제 뉴런 하나에 대응합니다. 그래서 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup> 단위로 실험 결과와 비교할 수 있고, 아직 측정되지 않은 세포에 대해서도 예측을 할 수 있습니다.<br>마지막 줄이 일반 딥러닝과의 가장 큰 차이입니다. 일반 딥러닝 모델은 범용 구조에서 데이터로부터 표현을 학습하는데, 이 논문은 실제 신경 연결 구조라는 사전 지식을 모델 구조 자체에 넣었습니다.</p></section>
+<section class="slide-s" id="s6"><header><span class="badge">6번</span><h3>독창성</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s6" target="slides">슬라이드 열기 ↗</a></header><p>정리하면 독창성은 네 가지입니다.<br>첫째, 뉴런 측정 데이터를 학습에 쓰지 않았습니다. 구조는 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>으로 고정하고 나머지는 움직임 감지<sup class="fn"><a href="#" data-g="18">[17]</a></sup> 과제로 학습했습니다.<br>둘째, 모델 뉴런과 실제 뉴런이 일대일로 대응합니다.<br>셋째, 규모입니다. 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup> 64개, 뉴런 약 4만 6천 개, 연결 약 151만 개로 시각엽<sup class="fn"><a href="#" data-g="15">[18]</a></sup>의 움직임 경로 전체를 한 모델로 학습했습니다.<br>넷째, 같은 설정으로 모델을 50개 학습해서, 모델끼리 예측이 일치하는지로 예측을 얼마나 믿을 수 있는지 판단합니다.</p></section>
+<h2 class="part" id="p-9">3부. 모델</h2>
+<section class="slide-s" id="s7"><header><span class="badge">7번</span><h3>DMN</h3><span class="time">2분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s7" target="slides">슬라이드 열기 ↗</a></header><p>논문의 모델 이름은 DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup>, Deep Mechanistic Network입니다. 위의 식이 뉴런 하나의 전압이 시간에 따라 어떻게 변하는지를 나타냅니다. 전압은 휴지 전위<sup class="fn"><a href="#" data-g="2">[20]</a></sup>로 돌아가려는 성질이 있고, 연결된 다른 뉴런들의 출력에 가중치를 곱해 더한 값과 외부 입력의 영향을 받습니다. τ는 반응 속도를 정하는 시간 상수<sup class="fn"><a href="#" data-g="3">[21]</a></sup>이고, 아래 첨자 c(i)는 뉴런 i가 속한 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>이라는 뜻입니다. 시간 t와 헷갈리지 않게 c로 표기했습니다.<br>이것을 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>과 대응시키면 아래 표와 같습니다. 은닉 상태<sup class="fn"><a href="#" data-g="27">[22]</a></sup>가 뉴런 전압이고, 순환 가중치 행렬<sup class="fn"><a href="#" data-g="28">[23]</a></sup>이 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>입니다. 활성화 함수<sup class="fn"><a href="#" data-g="66">[24]</a></sup>는 ReLU, 편향은 휴지 전위입니다. 연속시간 식을 20밀리초 간격으로 쪼개서 한 단계씩 계산하기 때문에, 시간 축으로 펼친 RNN과 같은 구조가 됩니다.<br>오른쪽은 고정 값과 학습 값입니다. 연결 여부와 시냅스 개수는 커넥톰에서, 흥분성·억제성 부호는 신경전달물질 정보에서 가져와 고정합니다. 학습하는 값은 세포 유형별 시간 상수 65개, 휴지 전위 65개, 연결 종류별 시냅스 세기 배율 604개로, 모두 734개입니다. 세포 유형은 64개인데 65개인 이유는 모델에서 CT1 세포를 두 구획으로 나눠 따로 다루기 때문입니다. 그리고 734개는 DMN만의 파라미터이고, 디코더<sup class="fn"><a href="#" data-g="32">[25]</a></sup>의 파라미터 7,427개가 따로 있어서 둘을 함께 학습합니다.</p></section>
+<section class="slide-s" id="s8"><header><span class="badge">8번</span><h3>이 모델을 사용한 이유</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s8" target="slides">슬라이드 열기 ↗</a></header><p>일반 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>이라면 연결 약 151만 개마다 가중치를 따로 학습해야 합니다. DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup>은 같은 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>끼리 값을 공유해서 734개만 학습합니다. 겹눈<sup class="fn"><a href="#" data-g="11">[26]</a></sup>의 721개 기둥마다 같은 회로가 반복되기 때문에 가능한 일이고, CNN<sup class="fn"><a href="#" data-g="65">[11]</a></sup>이 이미지의 모든 위치에 같은 필터를 쓰는 것과 같은 원리입니다. 이렇게 구조에 대한 가정을 미리 넣는 것을 귀납적 편향<sup class="fn"><a href="#" data-g="31">[6]</a></sup>이라고 합니다.<br>이렇게 하면 파라미터가 적어서 과적합<sup class="fn"><a href="#" data-g="67">[27]</a></sup>이 줄고, 학습된 값이 세포 유형별 시간 상수<sup class="fn"><a href="#" data-g="3">[21]</a></sup>처럼 생물학적인 의미를 가지고, 모델 뉴런이 실제 뉴런과 대응하니까 세포 단위로 검증할 수 있습니다.<br>RNN을 쓴 이유는 뉴런의 현재 전압이 이전 시점의 전압과 다른 뉴런들의 이전 출력에 의존하기 때문입니다. 입력을 한 번 통과시키고 끝나는 피드포워드 신경망<sup class="fn"><a href="#" data-g="63">[28]</a></sup>은 이런 시간에 따른 상태 변화를 표현하지 못합니다. 특히 움직임 감지<sup class="fn"><a href="#" data-g="18">[17]</a></sup>는 이웃한 위치의 신호가 어떤 순서로, 얼마의 시간 차이를 두고 들어오는지를 계산하는 것이라 순환 구조가 꼭 필요합니다.<br>ReLU는 전압이 일정 수준 이상일 때만 신호를 전달하는 시냅스의 성질을 단순하게 표현한 것입니다.</p></section>
+<section class="slide-s" id="s9"><header><span class="badge">9번</span><h3>디코더</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s9" target="slides">슬라이드 열기 ↗</a></header><p>DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup>의 출력 세포들의 전압을 읽어서 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup>, 즉 화면의 각 위치가 어느 방향으로 얼마나 빨리 움직이는지를 예측하는 부분이 디코더<sup class="fn"><a href="#" data-g="32">[25]</a></sup>입니다. 육각 합성곱<sup class="fn"><a href="#" data-g="33">[29]</a></sup> 층 두 개로 된 작은 CNN<sup class="fn"><a href="#" data-g="65">[11]</a></sup>입니다.<br>입력은 출력 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup> 34개의 전압이고, 학습 파라미터<sup class="fn"><a href="#" data-g="29">[30]</a></sup>는 7,427개입니다. 디코더를 작게 만든 이유는, 디코더가 크면 움직임 계산을 디코더가 대신해 버리기 때문입니다. 층 2개, 채널 8개로 제한해서 계산을 DMN 쪽이 맡도록 했습니다.<br>겹눈<sup class="fn"><a href="#" data-g="11">[26]</a></sup>이 육각 격자<sup class="fn"><a href="#" data-g="13">[31]</a></sup>라서 정사각 필터에 육각 모양 마스크를 씌워 합성곱을 하고, BatchNorm<sup class="fn"><a href="#" data-g="69">[32]</a></sup>과 Dropout<sup class="fn"><a href="#" data-g="68">[33]</a></sup>을 씁니다.</p></section>
+<h2 class="part" id="p-13">4부. 파이프라인</h2>
+<section class="slide-s" id="s10"><header><span class="badge">10번</span><h3>학습 파이프라인</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s10" target="slides">슬라이드 열기 ↗</a></header><p>학습 데이터는 Sintel이라는 애니메이션 영화 데이터셋입니다. 각 장면에 대해 정답 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup>가 주어져 있습니다.<br>영상을 겹눈<sup class="fn"><a href="#" data-g="11">[26]</a></sup> 구조에 맞게 721개 육각 픽셀로 바꾸고, 19프레임씩 잘라서 50Hz로 넣습니다. 뒤집기, 회전, 밝기와 대비 변화, 잡음 같은 데이터 증강<sup class="fn"><a href="#" data-g="40">[34]</a></sup>을 합니다.<br>순전파는 광수용체<sup class="fn"><a href="#" data-g="14">[16]</a></sup> 입력에서 DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup> 시뮬레이션, 디코더<sup class="fn"><a href="#" data-g="32">[25]</a></sup>를 거쳐 광류를 예측합니다. 손실은 예측 광류와 정답 광류의 L2 거리<sup class="fn"><a href="#" data-g="42">[35]</a></sup>에, 뉴런 활동이 비정상적으로 커지지 않게 하는 정규화 항<sup class="fn"><a href="#" data-g="43">[36]</a></sup>을 더한 것입니다.<br>시간 축으로 펼친 역전파<sup class="fn"><a href="#" data-g="44">[9]</a></sup>, BPTT<sup class="fn"><a href="#" data-g="45">[5]</a></sup>로 기울기를 구하고 Adam<sup class="fn"><a href="#" data-g="47">[37]</a></sup>으로 갱신합니다. 배치 4로 25만 번 반복합니다.<br>학습에 쓰지 않은 fold의 검증 손실<sup class="fn"><a href="#" data-g="50">[12]</a></sup>로 체크포인트<sup class="fn"><a href="#" data-g="49">[38]</a></sup>를 고르고, 같은 설정으로 50개를 학습해 검증 손실로 순위를 매깁니다. 마지막으로 학습에 쓰지 않은 실제 뉴런 측정 결과와 비교합니다. 이때 모델을 측정 결과에 다시 맞추는 과정은 없습니다.</p></section>
+<section class="slide-s" id="s11"><header><span class="badge">11번</span><h3>파이프라인의 특징</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s11" target="slides">슬라이드 열기 ↗</a></header><p>머신러닝 관점에서 세 가지를 짚겠습니다.<br>첫째, 지도학습<sup class="fn"><a href="#" data-g="70">[4]</a></sup>입니다. 입력 영상과 정답 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup>로 손실을 계산하고 BPTT<sup class="fn"><a href="#" data-g="45">[5]</a></sup>로 DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup> 파라미터를 갱신합니다. 중요한 건 실제 뉴런 전압을 정답으로 쓰지 않는다는 점입니다. 원래 관심 있는 것과 다른 과제로 학습하는 대리 과제<sup class="fn"><a href="#" data-g="38">[39]</a></sup> 방식입니다.<br>둘째, 일반화<sup class="fn"><a href="#" data-g="64">[8]</a></sup>입니다. 평가 데이터가 학습 데이터와 종류부터 다릅니다. 학습은 영화 장면과 광류, 평가는 실험실 자극과 실제 뉴런 반응입니다. 학습 분포 밖에서의 일반화를 확인하는 셈입니다.<br>셋째, 같은 설정으로도 모델마다 결과가 다르기 때문에 모델을 골라야 하는데, 뉴런 데이터로 고르면 테스트 데이터를 미리 보는 셈이라 과제 검증 손실<sup class="fn"><a href="#" data-g="50">[12]</a></sup>로 고릅니다.</p></section>
+<h2 class="part" id="p-16">5부. 결과</h2>
+<section class="slide-s" id="s12"><header><span class="badge">12번</span><h3>평가 방법</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s12" target="slides">슬라이드 열기 ↗</a></header><p>학습된 모델에 실험실에서 쓰는 자극을 넣고, 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>별 반응을 실제 실험 결과와 비교했습니다. 비교 항목은 세 가지입니다.<br>첫째는 ON<sup class="fn"><a href="#" data-g="17">[40]</a></sup>/OFF 극성입니다. 원형 빛을 깜빡여서 밝아질 때 반응하는 세포인지 어두워질 때 반응하는 세포인지를 봅니다. 실험으로 알려진 세포 유형은 24개입니다.<br>둘째는 방향 선택성<sup class="fn"><a href="#" data-g="20">[41]</a></sup>입니다. 밝거나 어두운 가장자리를 여러 방향으로 움직여서 특정 방향에만 반응하는지를 봅니다. 알려진 유형은 18개로, 방향 선택적인 것이 8개, 아닌 것이 10개입니다.<br>셋째는 방향 선택적인 T4<sup class="fn"><a href="#" data-g="19">[42]</a></sup>, T5 세포의 방향별 반응 곡선입니다. 2013년 Maisak 등의 실측 곡선과 비교합니다.</p>
+<p>(각 실험이 어떻게 진행되는지는 아래 &quot;논문 실험 상세&quot; 참고. 질문이 나오면 설명)</p></section>
+<section class="slide-s" id="s13"><header><span class="badge">13번</span><h3>T4/T5 방향 선택성</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s13" target="slides">슬라이드 열기 ↗</a></header><p>왼쪽 그래프는 실제로 측정된 T4<sup class="fn"><a href="#" data-g="19">[42]</a></sup>, T5의 방향별 반응입니다. 각도는 움직임 방향, 반지름은 반응 크기입니다. 각각 a부터 d까지 네 하위 유형이 있고, 하위 유형마다 앞에서 뒤, 뒤에서 앞, 위, 아래 중 한 방향에만 크게 반응합니다.<br>광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup> 과제로만 학습한 모델에서도 T4, T5가 이와 같은 방향 선택성<sup class="fn"><a href="#" data-g="20">[41]</a></sup>을 보였습니다. 반대로 실험에서 방향 선택성이 없다고 알려진 Mi1, Tm3 같은 10개 유형은 모델에서도 방향 선택성이 거의 없었습니다.<br>공개된 모델로 직접 확인해 보니, 방향 선택성 지수<sup class="fn"><a href="#" data-g="55">[43]</a></sup>의 중앙값이 방향 선택적 유형은 0.52, 그렇지 않은 유형은 0.02였습니다.</p></section>
+<section class="slide-s" id="s14"><header><span class="badge">14번</span><h3>앙상블과 모델 선택</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s14" target="slides">슬라이드 열기 ↗</a></header><p>같은 설정으로 50개 모델을 학습하면 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>에 따라 모델마다 반응이 다르게 나옵니다. 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>과 과제만으로는 일부 값이 하나로 정해지지 않는다는 뜻입니다.<br>논문은 세포 유형마다 50개 모델의 반응을 UMAP<sup class="fn"><a href="#" data-g="57">[44]</a></sup>으로 2차원으로 줄이고 군집화해서, 모델들이 어떤 종류의 해로 나뉘는지 분석했습니다.<br>그리고 과제 검증 손실<sup class="fn"><a href="#" data-g="50">[12]</a></sup>이 낮은 모델일수록 실제 측정과 더 일치하는 경향이 있었습니다. 그래서 뉴런 데이터를 보지 않고 과제 성능만으로 모델을 고를 수 있습니다. 아래 흐름처럼 실제 측정 데이터는 맨 마지막 평가에서만 씁니다.</p></section>
+<section class="slide-s" id="s15"><header><span class="badge">15번</span><h3>측정되지 않은 세포에 대한 예측</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s15" target="slides">슬라이드 열기 ↗</a></header><p>광수용체<sup class="fn"><a href="#" data-g="14">[16]</a></sup>를 뺀 모델의 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup> 57개 중 ON<sup class="fn"><a href="#" data-g="17">[40]</a></sup>/OFF 성질이 알려진 건 24개이고 33개는 아직 모릅니다.<br>모델 뉴런이 실제 세포 유형에 대응하기 때문에 이런 세포들의 반응도 예측할 수 있습니다. 앙상블<sup class="fn"><a href="#" data-g="34">[45]</a></sup> 모델들의 예측이 일치하면 신뢰할 만하고, 엇갈리면 추가 실험이 필요하다고 볼 수 있습니다. 그래서 실험에서 무엇을 먼저 측정할지 정하는 데 쓸 수 있습니다.<br>결과를 정리하면 오른쪽 네 가지입니다.</p></section>
+<h2 class="part" id="p-21">6부. 한계와 극복 아이디어</h2>
+<section class="slide-s" id="s16"><header><span class="badge">16번</span><h3>논문의 한계</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s16" target="slides">슬라이드 열기 ↗</a></header><p>한계는 네 가지로 봤습니다.<br>첫째, 세포 단위 활동만 다룹니다. 사람에게서 얻는 EEG<sup class="fn"><a href="#" data-g="72">[13]</a></sup> 같은 신호는 많은 뉴런의 활동이 섞인 신호인데, 그런 신호에서도 같은 정보를 읽어낼 수 있는지는 다루지 않았습니다.<br>둘째, 앞에서 본 것처럼 해가 하나로 정해지지 않습니다.<br>셋째, 스파이크<sup class="fn"><a href="#" data-g="6">[46]</a></sup>가 없는 단순한 뉴런 모델입니다.<br>넷째, 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup> 하나의 과제로만 학습했습니다.<br>2번부터 4번은 모델을 다시 학습해야 해서 노트북으로는 어렵고, 1번은 공개된 학습 모델을 그대로 써서 확인할 수 있어서 1번에 대한 아이디어를 실험해 봤습니다.</p></section>
+<section class="slide-s" id="s17"><header><span class="badge">17번</span><h3>가상 뇌에서 섞인 신호 디코딩</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s17" target="slides">슬라이드 열기 ↗</a></header><p>학습된 모델을 고정하고 신경 활동을 기록하는 장치로 썼습니다. 같은 뇌에서 세 종류의 신호를 만들었습니다. A는 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>별 전압 평균 65채널로, 특정 세포를 골라 기록하는 경우입니다. B는 세포 유형을 구분하지 않고 눈을 4구역으로 나눠 더한 4채널과, 전체를 더한 1채널로, EEG<sup class="fn"><a href="#" data-g="72">[13]</a></sup> 전극 4개와 1개에 해당합니다.<br>각 신호로 막대의 움직임 방향 8개를 분류했습니다. 자극 48개에 측정 잡음<sup class="fn"><a href="#" data-g="75">[47]</a></sup>을 20번씩 더했고, 처음 보는 속도로 테스트하도록 속도 기준으로 교차검증<sup class="fn"><a href="#" data-g="85">[48]</a></sup>했습니다. 정규화<sup class="fn"><a href="#" data-g="81">[49]</a></sup>와 특징 선택<sup class="fn"><a href="#" data-g="80">[50]</a></sup>은 학습 fold 안에서만 해서 데이터 누수<sup class="fn"><a href="#" data-g="86">[51]</a></sup>를 막았습니다.</p></section>
+<section class="slide-s" id="s18"><header><span class="badge">18번</span><h3>디코딩 결과</h3><span class="time">1분 30초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s18" target="slides">슬라이드 열기 ↗</a></header><p>(슬라이더를 움직이며) 잡음이 신호 크기와 같을 때 정확도는 세포 단위 신호 99.9%, 4채널 84.1%, 1채널 40.3%입니다. 우연 수준<sup class="fn"><a href="#" data-g="76">[52]</a></sup>은 12.5%입니다. 잡음이 클수록 차이가 커집니다.<br>특징 선택<sup class="fn"><a href="#" data-g="80">[50]</a></sup>으로 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>을 하나씩 추가해 보면 3개로 98.1%가 나왔고, 모든 fold에서 T4<sup class="fn"><a href="#" data-g="19">[42]</a></sup>a와 T5d가 선택됐습니다. 앞에서 본 방향 선택 세포입니다.<br>채널 수를 4개로 맞춰 비교하면, 특징 선택으로 고른 세포 4개가 99.5%, 4구역 신호가 84.1%, 무작위로 고른 세포 4개가 중앙값 68.6%였습니다. 채널 수보다 어떤 세포를 기록하느냐가 더 중요했습니다.<br>마지막으로 정답을 섞은 데이터에서 테스트 정답을 보고 특징을 고르면 22.4%가 나와서, 누수가 있으면 관계없는 데이터에서도 정확도가 우연보다 높게 나온다는 것을 확인했습니다.<br>시뮬레이션 결과이고 EEG<sup class="fn"><a href="#" data-g="72">[13]</a></sup>를 단순 합으로 만든 것이라 실제 뇌에 그대로 적용할 수는 없습니다. 그리고 이 실험은 신호를 어떻게 기록하느냐에 따라 읽어낼 수 있는 정보량이 달라진다는 것을 보여줄 뿐, 분류 정확도가 높다고 해서 DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup>이 생물학적으로 정확하다는 것까지 증명하지는 않습니다.</p></section>
+<h2 class="part" id="p-25">추가와 마무리</h2>
+<section class="slide-s" id="s19"><header><span class="badge">19번</span><h3>공개 모델로 T4/T5 결과 재현</h3><span class="time">1분</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s19" target="slides">슬라이드 열기 ↗</a></header><p>논문을 읽고 나서 직접 해 보고 싶어서, 공개된 코드와 사전학습 모델<sup class="fn"><a href="#" data-g="35">[53]</a></sup> 50개로 논문의 T4<sup class="fn"><a href="#" data-g="19">[42]</a></sup>, T5 실험을 노트북에서 돌려 봤습니다. (방향 버튼 클릭) 방향을 바꾸면 왼쪽 자극과 그래프의 바늘이 바뀝니다.<br>과제 손실이 가장 낮은 모델은 8개 하위 유형의 선호 방향<sup class="fn"><a href="#" data-g="21">[54]</a></sup>이 모두 실측과 일치했습니다. (상위 10개 클릭) 상위 10개를 각각 그려 보면 모델마다 모양이 다릅니다. 과제 손실 1–10위 모델은 평균 5.1개, 41–50위는 2.8개가 일치했습니다.</p></section>
+<section class="slide-s" id="s20"><header><span class="badge">20번</span><h3>정리</h3><span class="time">40초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s20" target="slides">슬라이드 열기 ↗</a></header><p>정리하면, 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>만으로는 뉴런의 동작을 알 수 없고 직접 측정은 어렵다는 문제에서 출발해서, 커넥톰으로 구조를 고정한 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>을 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup> 과제로 학습시켰습니다. 뉴런 데이터 없이 학습했는데 알려진 세포의 성질과 일치했고, 측정되지 않은 세포에 대한 예측도 제공합니다. 커넥톰 구조를 귀납적 편향<sup class="fn"><a href="#" data-g="31">[6]</a></sup>으로 쓴 딥러닝 모델이라고 볼 수 있습니다.</p></section>
+<section class="slide-s" id="s21"><header><span class="badge">21번</span><h3>참고문헌</h3><span class="time">10초</span><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s21" target="slides">슬라이드 열기 ↗</a></header><p>들어 주셔서 감사합니다.</p></section>
+<h2 class="part">부록 (질문이 나오면)</h2>
+<section class="slide-s" id="s22"><header><span class="badge">22번</span><h3>부록 A · 신경 활동 영상</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s22" target="slides">슬라이드 열기 ↗</a></header><p>&quot;모델이 실제로 어떻게 반응하나요?&quot;</p></section>
+<section class="slide-s" id="s23"><header><span class="badge">23번</span><h3>부록 B · 과제 손실과 일치도</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s23" target="slides">슬라이드 열기 ↗</a></header><p>&quot;과제 성능과 생물학적 정확도 관계를 직접 확인했나요?&quot;</p></section>
+<section class="slide-s" id="s24"><header><span class="badge">24번</span><h3>부록 C · 혼동 행렬</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s24" target="slides">슬라이드 열기 ↗</a></header><p>&quot;4채널은 어떤 방향을 틀리나요?&quot; — 대각선 방향은 잘 맞히고 0°, 180°, 270°에서 혼동. 수평·수직 막대는 두 구역을 동시에 지나서 구역 간 시간 차가 줄어듦</p></section>
+<section class="slide-s" id="s25"><header><span class="badge">25번</span><h3>부록 D · 특징 선택</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s25" target="slides">슬라이드 열기 ↗</a></header><p>&quot;특징 선택<sup class="fn"><a href="#" data-g="80">[50]</a></sup>은 어떻게 했나요?&quot;</p></section>
+<section class="slide-s" id="s26"><header><span class="badge">26번</span><h3>부록 E · 채널 수 비교</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s26" target="slides">슬라이드 열기 ↗</a></header><p>&quot;65채널과 4채널 비교는 불공평하지 않나요?&quot;</p></section>
+<section class="slide-s" id="s27"><header><span class="badge">27번</span><h3>부록 F · 특징·분류기</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s27" target="slides">슬라이드 열기 ↗</a></header><p>&quot;PSD<sup class="fn"><a href="#" data-g="78">[55]</a></sup>나 다른 분류기는요?&quot; — 시간 영역 특징이 PSD보다 높음(99.9% vs 75.1%), 분류기 간 차이 작음</p></section>
+<section class="slide-s" id="s28"><header><span class="badge">28번</span><h3>부록 G · 데이터 누수</h3><a class="go" href="https://two025240014-jimin-ml.onrender.com/#s28" target="slides">슬라이드 열기 ↗</a></header><p>&quot;누수는 어떻게 확인했나요?&quot;</p></section>
+<h2 class="part" id="p-31">논문 실험 상세</h2>
+<div class="partbody"><p>논문이 학습된 모델을 평가한 실험들. 무엇을 알아보려고, 어떤 자극으로, 어떤 지표를 계산해서, 무엇과 비교했는지 정리. 계산 방식은 공식 코드(flyvis<sup class="fn"><a href="#" data-g="36">[56]</a></sup>) 기준.</p></div>
+<section class="slide-s plain" id="x33"><header><h3>실험 1. 깜빡임 자극 — ON/OFF 극성</h3></header><ul>
+<li>목적: 각 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>이 빛이 밝아질 때(ON<sup class="fn"><a href="#" data-g="17">[40]</a></sup>) 반응하는지, 어두워질 때(OFF) 반응하는지 확인</li>
+<li>배경: 초파리 시각계는 밝아짐을 처리하는 ON 경로<sup class="fn"><a href="#" data-g="16">[57]</a></sup>와 어두워짐을 처리하는 OFF 경로로 나뉨. 세포가 어느 경로에 속하는지는 실험으로 일부만 알려져 있음</li>
+<li>자극: 회색 화면(밝기 0.5)을 1초 보여 준 뒤, 화면 중앙에 원형 빛을 1초 동안 밝게(1) 또는 어둡게(0) 바꿈. 원 크기를 달리해서 반복</li>
+<li>측정: 각 세포 유형의 중앙 기둥 뉴런 전압</li>
+<li>지표: FRI<sup class="fn"><a href="#" data-g="53">[58]</a></sup> (Flash Response Index) = (밝아질 때 최대 반응 − 어두워질 때 최대 반응) / (두 값의 합). +1에 가까우면 ON, −1에 가까우면 OFF</li>
+<li>비교: 극성이 실험으로 알려진 24개 유형(ON 10, OFF 14)과 FRI 부호가 맞는지</li>
+<li>의미: 학습에 쓰지 않은 자극에서 세포의 기본 성질을 맞히는지 보는 가장 기초적인 검증</li>
+</ul></section>
+<section class="slide-s plain" id="x34"><header><h3>실험 2. 움직이는 가장자리 — 방향 선택성</h3></header><ul>
+<li>목적: 각 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>이 특정 방향의 움직임에만 반응하는지 확인</li>
+<li>배경: T4<sup class="fn"><a href="#" data-g="19">[42]</a></sup>(밝은 가장자리)와 T5(어두운 가장자리)는 하위 유형 a–d가 각각 한 방향을 담당하는 방향 감지 세포로 알려져 있음. 이 세포들이 생기려면 회로가 신호 간 시간 차이를 계산해야 함</li>
+<li>자극: 화면 절반이 밝거나 어두워지는 경계(가장자리)를 12방향(30° 간격)으로, 여러 속도로 이동</li>
+<li>측정: 가장자리가 중앙 기둥 근처를 지나는 시간 동안 각 세포 유형의 최대 전압(음수는 0으로 처리)</li>
+<li>지표:</li>
+<li class="sub">DSI<sup class="fn"><a href="#" data-g="55">[43]</a></sup> (Direction Selectivity Index) = 방향별 반응을 그 방향의 벡터로 놓고 더한 벡터의 길이 / 반응의 합. 0이면 모든 방향에 같은 반응, 1이면 한 방향에만 반응</li>
+<li class="sub">선호 방향<sup class="fn"><a href="#" data-g="21">[54]</a></sup> = 더한 벡터의 방향</li>
+<li>비교:</li>
+<li class="sub">방향 선택성<sup class="fn"><a href="#" data-g="20">[41]</a></sup>이 알려진 18개 유형(선택적 8, 비선택적 10)과 DSI 크기</li>
+<li class="sub">T4a–d, T5a–d의 선호 방향과 방향별 반응 곡선을 실측(Maisak et al. 2013)과 비교</li>
+<li>의미: 방향 감지는 과제(광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup>)와 직접 관련된 계산이라, 과제 학습만으로 실제와 같은 세포가 생기는지 보는 핵심 실험</li>
+</ul></section>
+<section class="slide-s plain" id="x35"><header><h3>실험 3. 앙상블 분석 — 해의 다양성과 모델 선택</h3></header><ul>
+<li>목적: 같은 조건으로 학습한 모델들이 같은 해에 도달하는지, 다르다면 어떤 모델을 믿어야 하는지 확인</li>
+<li>방법:</li>
+<li class="sub">같은 설정으로 50개 모델 학습 (학습 과정의 무작위성 때문에 결과가 다름)</li>
+<li class="sub">세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>마다 50개 모델의 자연 영상(Sintel) 반응을 UMAP<sup class="fn"><a href="#" data-g="57">[44]</a></sup>으로 2차원으로 줄이고, 가우시안 혼합 모델<sup class="fn"><a href="#" data-g="58">[59]</a></sup>로 군집화. 군집 수(2–5개)는 BIC<sup class="fn"><a href="#" data-g="59">[60]</a></sup>로 선택</li>
+<li class="sub">모델별 과제 검증 손실<sup class="fn"><a href="#" data-g="50">[12]</a></sup>과 실측 일치도의 관계 확인</li>
+<li>결과: 세포 유형에 따라 모델들이 몇 개의 해로 나뉨. 과제 손실이 낮은 모델일수록 실측과 더 일치하는 경향</li>
+<li>의미: 실측 데이터<sup class="fn"><a href="#" data-g="56">[61]</a></sup>를 쓰지 않고 과제 성능으로 모델을 고를 수 있다는 근거. 모델 간 일치도가 예측의 신뢰도가 됨</li>
+</ul></section>
+<section class="slide-s plain" id="x36"><header><h3>실험 4. 측정되지 않은 세포 예측</h3></header><ul>
+<li>목적: 실험으로 아직 기록되지 않은 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>의 성질 예측</li>
+<li>방법: 실험 1, 2와 같은 자극을 모든 세포 유형에 적용해 FRI<sup class="fn"><a href="#" data-g="53">[58]</a></sup>, DSI<sup class="fn"><a href="#" data-g="55">[43]</a></sup> 계산. 앙상블<sup class="fn"><a href="#" data-g="34">[45]</a></sup> 모델 간 일치 여부 확인</li>
+<li>의미: 실험 연구자에게 측정할 가설과 우선순위를 제공</li>
+</ul></section>
+<h2 class="part" id="p-37">예상 질문과 답</h2>
+<div class="partbody"><ul>
+<li>왜 RNN<sup class="fn"><a href="#" data-g="62">[2]</a></sup>을 썼나요? 피드포워드 신경망<sup class="fn"><a href="#" data-g="63">[28]</a></sup>으로는 안 되나요?</li>
+<li class="ans">뉴런의 현재 상태가 이전 시점 상태에 의존해서 시간에 따른 동역학을 표현해야 합니다. 움직임 감지<sup class="fn"><a href="#" data-g="18">[17]</a></sup>는 신호 간 시간 차이를 계산하는 것이라 순환 구조가 필요합니다.</li>
+<li>연결이 151만 개인데 왜 학습 파라미터<sup class="fn"><a href="#" data-g="29">[30]</a></sup>는 734개인가요?</li>
+<li class="ans">연결 여부와 시냅스 개수는 커넥톰<sup class="fn"><a href="#" data-g="7">[1]</a></sup>으로, 흥분/억제 부호는 신경전달물질 정보로 고정하고, 같은 세포 유형<sup class="fn"><a href="#" data-g="10">[14]</a></sup>끼리 시간 상수<sup class="fn"><a href="#" data-g="3">[21]</a></sup>와 휴지 전위<sup class="fn"><a href="#" data-g="2">[20]</a></sup>를, 같은 연결 종류끼리 세기 배율을 공유하기 때문입니다. 파라미터 공유<sup class="fn"><a href="#" data-g="30">[7]</a></sup>이자 귀납적 편향<sup class="fn"><a href="#" data-g="31">[6]</a></sup>입니다. 734개는 DMN<sup class="fn"><a href="#" data-g="24">[19]</a></sup>만의 수이고, 디코더<sup class="fn"><a href="#" data-g="32">[25]</a></sup> 파라미터 7,427개는 따로 함께 학습합니다.</li>
+<li>정답 데이터는 무엇인가요?</li>
+<li class="ans">Sintel 영상의 정답 광류<sup class="fn"><a href="#" data-g="23">[3]</a></sup>입니다. 실제 뉴런 전압은 학습에 쓰지 않고 평가에만 씁니다.</li>
+<li>일반적인 딥러닝 모델과 무엇이 다른가요?</li>
+<li class="ans">일반 딥러닝은 범용 구조에서 데이터로 표현을 배우지만, DMN은 실제 신경 연결 구조를 모델 구조에 직접 넣었습니다. 그래서 모델 뉴런이 실제 뉴런과 일대일로 대응합니다.</li>
+<li>추가 실험은 무엇을 증명하나요?</li>
+<li class="ans">신호를 섞는 방식에 따라 방향 정보가 얼마나 남는지를 보여줍니다. DMN의 생물학적 정확성을 증명하는 실험은 아닙니다.</li>
+<li>커넥톰을 쓰지 않고 일반 RNN으로 학습하면 안 되나요?</li>
+<li class="ans">일반 RNN은 연결마다 가중치를 따로 배워야 해서 파라미터가 약 151만 개로 늘어나고, 모델 유닛이 실제 어떤 뉴런인지 대응이 없어서 세포 단위 검증이 안 됩니다.</li>
+<li>왜 광류를 과제로 썼나요?</li>
+<li class="ans">이 회로가 시각엽<sup class="fn"><a href="#" data-g="15">[18]</a></sup>의 움직임 경로이기 때문입니다. 회로가 실제로 하는 일과 가까운 과제를 줘야 실제와 비슷한 해가 나올 것이라는 가정입니다.</li>
+<li>모델마다 결과가 다르면 믿을 수 있나요?</li>
+<li class="ans">그래서 50개 앙상블<sup class="fn"><a href="#" data-g="34">[45]</a></sup>을 쓰고, 과제 성능으로 모델을 고르고, 모델 간 일치 여부로 신뢰도를 판단합니다. 재현에서도 과제 손실이 낮은 모델일수록 실측과 더 일치했습니다.</li>
+<li>디코더가 계산을 대신하지 않나요?</li>
+<li class="ans">디코더를 층 2개, 채널 8개의 작은 CNN<sup class="fn"><a href="#" data-g="65">[11]</a></sup>으로 제한해서 움직임 계산을 DMN이 맡도록 했습니다.</li>
+<li>추가 실험은 시뮬레이션인데 의미가 있나요?</li>
+<li class="ans">실제로는 같은 뇌에서 세포 단위 신호와 섞인 신호를 정답과 함께 동시에 얻기 어려워서 시뮬레이션으로 비교했습니다. 결론은 이 모델 안에서의 결론입니다.</li>
+<li>왜 로지스틱 회귀<sup class="fn"><a href="#" data-g="82">[62]</a></sup>를 썼나요?</li>
+<li class="ans">정보가 신호에 있는지를 보려는 것이라 단순한 선형 분류기를 썼습니다. K-NN<sup class="fn"><a href="#" data-g="83">[63]</a></sup>, 선형 SVM<sup class="fn"><a href="#" data-g="84">[64]</a></sup>과도 비교했고 차이가 작았습니다(부록 F).</li>
+<li>데이터 누수<sup class="fn"><a href="#" data-g="86">[51]</a></sup>는 어떻게 막았나요?</li>
+<li class="ans">속도 기준으로 fold를 나눠 같은 자극의 반복 측정이 학습과 테스트에 섞이지 않게 했고, 정규화<sup class="fn"><a href="#" data-g="81">[49]</a></sup>·특징 선택<sup class="fn"><a href="#" data-g="80">[50]</a></sup>·하이퍼파라미터<sup class="fn"><a href="#" data-g="71">[65]</a></sup> 선택은 모두 학습 fold 안에서만 했습니다(부록 D, G).</li>
+</ul></div>
+    <h2 class="part" id="fns">각주 용어 목록</h2>
+    <ul class="fnlist"><li id="fn1"><a href="#" data-g="7">[1]</a> 커넥톰 (connectome)</li>
+<li id="fn2"><a href="#" data-g="62">[2]</a> RNN (Recurrent Neural Network, 순환 신경망)</li>
+<li id="fn3"><a href="#" data-g="23">[3]</a> 광류 (optical flow)</li>
+<li id="fn4"><a href="#" data-g="70">[4]</a> 지도학습 / 비지도학습</li>
+<li id="fn5"><a href="#" data-g="45">[5]</a> BPTT (Backpropagation Through Time, 시간 펼친 역전파)</li>
+<li id="fn6"><a href="#" data-g="31">[6]</a> 귀납적 편향 (inductive bias)</li>
+<li id="fn7"><a href="#" data-g="30">[7]</a> 파라미터 공유 (parameter sharing, weight sharing)</li>
+<li id="fn8"><a href="#" data-g="64">[8]</a> 일반화 (generalization)</li>
+<li id="fn9"><a href="#" data-g="44">[9]</a> 역전파 (backpropagation)</li>
+<li id="fn10"><a href="#" data-g="46">[10]</a> 경사 하강법 (gradient descent)</li>
+<li id="fn11"><a href="#" data-g="65">[11]</a> CNN (Convolutional Neural Network, 합성곱 신경망)</li>
+<li id="fn12"><a href="#" data-g="50">[12]</a> 검증 손실 (validation loss)</li>
+<li id="fn13"><a href="#" data-g="72">[13]</a> EEG (뇌파)</li>
+<li id="fn14"><a href="#" data-g="10">[14]</a> 세포 유형 (cell type)</li>
+<li id="fn15"><a href="#" data-g="9">[15]</a> 전기생리학 측정, 칼슘 이미징</li>
+<li id="fn16"><a href="#" data-g="14">[16]</a> 광수용체 (photoreceptor, R1–R8)</li>
+<li id="fn17"><a href="#" data-g="18">[17]</a> 움직임 감지 (motion detection)</li>
+<li id="fn18"><a href="#" data-g="15">[18]</a> 시각엽 (optic lobe)</li>
+<li id="fn19"><a href="#" data-g="24">[19]</a> DMN (Deep Mechanistic Network)</li>
+<li id="fn20"><a href="#" data-g="2">[20]</a> 휴지 전위 (resting potential)</li>
+<li id="fn21"><a href="#" data-g="3">[21]</a> 시간 상수 (time constant, τ)</li>
+<li id="fn22"><a href="#" data-g="27">[22]</a> 은닉 상태 (hidden state)</li>
+<li id="fn23"><a href="#" data-g="28">[23]</a> 순환 가중치 행렬 (recurrent weight matrix)</li>
+<li id="fn24"><a href="#" data-g="66">[24]</a> 활성화 함수 (activation function)</li>
+<li id="fn25"><a href="#" data-g="32">[25]</a> 디코더 (decoder)</li>
+<li id="fn26"><a href="#" data-g="11">[26]</a> 겹눈 (compound eye)</li>
+<li id="fn27"><a href="#" data-g="67">[27]</a> 과적합 (overfitting)</li>
+<li id="fn28"><a href="#" data-g="63">[28]</a> 피드포워드 신경망 (feedforward neural network)</li>
+<li id="fn29"><a href="#" data-g="33">[29]</a> 육각 합성곱 (hexagonal convolution)</li>
+<li id="fn30"><a href="#" data-g="29">[30]</a> 고정 파라미터 / 학습 파라미터</li>
+<li id="fn31"><a href="#" data-g="13">[31]</a> 육각 격자 (hexagonal lattice)</li>
+<li id="fn32"><a href="#" data-g="69">[32]</a> BatchNorm (배치 정규화)</li>
+<li id="fn33"><a href="#" data-g="68">[33]</a> Dropout</li>
+<li id="fn34"><a href="#" data-g="40">[34]</a> 데이터 증강 (data augmentation)</li>
+<li id="fn35"><a href="#" data-g="42">[35]</a> L2 거리 (L2 norm)</li>
+<li id="fn36"><a href="#" data-g="43">[36]</a> 정규화 항 (regularization term)</li>
+<li id="fn37"><a href="#" data-g="47">[37]</a> Adam</li>
+<li id="fn38"><a href="#" data-g="49">[38]</a> 체크포인트 (checkpoint)</li>
+<li id="fn39"><a href="#" data-g="38">[39]</a> 대리 과제 (proxy task)</li>
+<li id="fn40"><a href="#" data-g="17">[40]</a> ON/OFF 극성 (polarity)</li>
+<li id="fn41"><a href="#" data-g="20">[41]</a> 방향 선택성 (direction selectivity)</li>
+<li id="fn42"><a href="#" data-g="19">[42]</a> T4 / T5 세포</li>
+<li id="fn43"><a href="#" data-g="55">[43]</a> DSI (Direction Selectivity Index, 방향 선택성 지수)</li>
+<li id="fn44"><a href="#" data-g="57">[44]</a> UMAP (Uniform Manifold Approximation and Projection)</li>
+<li id="fn45"><a href="#" data-g="34">[45]</a> 앙상블 (ensemble)</li>
+<li id="fn46"><a href="#" data-g="6">[46]</a> 스파이크 (spike, 활동 전위)</li>
+<li id="fn47"><a href="#" data-g="75">[47]</a> 측정 잡음 (measurement noise)</li>
+<li id="fn48"><a href="#" data-g="85">[48]</a> 교차검증 (cross-validation)</li>
+<li id="fn49"><a href="#" data-g="81">[49]</a> 정규화 (normalization), z-score</li>
+<li id="fn50"><a href="#" data-g="80">[50]</a> 특징 선택 (feature selection)</li>
+<li id="fn51"><a href="#" data-g="86">[51]</a> 데이터 누수 (data leakage)</li>
+<li id="fn52"><a href="#" data-g="76">[52]</a> 우연 수준 (chance level)</li>
+<li id="fn53"><a href="#" data-g="35">[53]</a> 사전학습 모델 (pretrained model)</li>
+<li id="fn54"><a href="#" data-g="21">[54]</a> 선호 방향 (preferred direction)</li>
+<li id="fn55"><a href="#" data-g="78">[55]</a> PSD (Power Spectral Density, 파워 스펙트럼 밀도)</li>
+<li id="fn56"><a href="#" data-g="36">[56]</a> flyvis</li>
+<li id="fn57"><a href="#" data-g="16">[57]</a> ON 경로 / OFF 경로</li>
+<li id="fn58"><a href="#" data-g="53">[58]</a> FRI (Flash Response Index)</li>
+<li id="fn59"><a href="#" data-g="58">[59]</a> 가우시안 혼합 모델 (Gaussian Mixture Model, GMM)</li>
+<li id="fn60"><a href="#" data-g="59">[60]</a> BIC (Bayesian Information Criterion)</li>
+<li id="fn61"><a href="#" data-g="56">[61]</a> 실측 데이터 (ground truth)</li>
+<li id="fn62"><a href="#" data-g="82">[62]</a> 로지스틱 회귀 (logistic regression)</li>
+<li id="fn63"><a href="#" data-g="83">[63]</a> K-NN (K-최근접 이웃)</li>
+<li id="fn64"><a href="#" data-g="84">[64]</a> 선형 SVM (Support Vector Machine)</li>
+<li id="fn65"><a href="#" data-g="71">[65]</a> 하이퍼파라미터 (hyperparameter)</li></ul>
+  </main>
+</div>
+<div id="pop" hidden role="dialog" aria-modal="true" aria-labelledby="pop-title">
+  <div class="card">
+    <div class="inner"><div class="cat" id="pop-cat"></div><h4 id="pop-title"></h4><div id="pop-body"></div></div>
+    <button class="close" type="button" id="pop-close">닫기</button>
+  </div>
+</div>
+<script>
+const G = [{"title": "뉴런 (neuron)", "category": "1. 신경과학 기초", "body": ["신경계에서 정보를 전달하는 세포. 다른 뉴런에게서 신호를 받아 전압이 변하고, 그 변화를 다시 다음 뉴런에 전달함.", "- 이 논문에서는 뉴런 하나를 \"전압 하나\"로 단순화해서 다룸."]}, {"title": "막전위, 전압 (membrane potential)", "category": "1. 신경과학 기초", "body": ["뉴런 세포막 안팎의 전압 차이. 다른 뉴런에서 흥분성 신호를 받으면 올라가고(탈분극), 억제성 신호를 받으면 내려감(과분극).", "- 모델의 상태 변수 V가 이 값. 단위는 실제 mV가 아니라 임의 단위."]}, {"title": "휴지 전위 (resting potential)", "category": "1. 신경과학 기초", "body": ["아무 입력이 없을 때 뉴런이 유지하는 기본 전압. 입력이 끊기면 전압은 이 값으로 돌아감.", "- 모델에서 세포 유형마다 하나씩 학습하는 값(65개). 신경망의 편향(bias)과 같은 역할."]}, {"title": "시간 상수 (time constant, τ)", "category": "1. 신경과학 기초", "body": ["입력이 바뀌었을 때 전압이 새 값으로 따라가는 속도를 나타내는 값. τ가 작으면 빠르게, 크면 천천히 반응.", "- 모델에서 세포 유형마다 하나씩 학습하는 값(65개). 움직임 감지에는 세포마다 반응 속도가 다른 것이 중요함."]}, {"title": "시냅스 (synapse)", "category": "1. 신경과학 기초", "body": ["뉴런과 뉴런이 신호를 주고받는 연결 부위. 두 뉴런 사이에 시냅스가 여러 개 있을 수 있고, 개수가 많을수록 영향이 큼.", "- 흥분성 시냅스: 받는 뉴런의 전압을 올림", "- 억제성 시냅스: 받는 뉴런의 전압을 내림", "- 모델에서 연결 가중치 = 부호(흥분 +1 / 억제 −1) × 시냅스 개수 × 세기 배율. 개수는 커넥톰에서, 부호는 세포 유형의 신경전달물질 정보로 추정해 고정하고, 세기 배율만 학습."]}, {"title": "탈분극 / 과분극 (depolarization / hyperpolarization)", "category": "1. 신경과학 기초", "body": ["전압이 휴지 전위보다 올라가는 것이 탈분극, 내려가는 것이 과분극. 일반적으로 탈분극이 \"반응했다\"는 뜻.", "- 부록 A 영상에서 빨강 = 탈분극, 파랑 = 과분극."]}, {"title": "스파이크 (spike, 활동 전위)", "category": "1. 신경과학 기초", "body": ["많은 뉴런이 전압이 일정 수준을 넘으면 순간적으로 크게 튀는 신호를 내보냄. 초파리 시각엽의 많은 뉴런은 스파이크 대신 전압이 연속적으로 변하는 방식(graded potential)으로 신호를 전달함.", "- 이 논문의 모델은 스파이크를 다루지 않음 (한계 3번)."]}, {"title": "커넥톰 (connectome)", "category": "1. 신경과학 기초", "body": ["뇌 안의 모든 뉴런과 그 연결(시냅스)을 정리한 지도. 전자현미경으로 뇌 조직을 아주 얇게 잘라 찍은 뒤 뉴런을 하나하나 추적해서 만듦. \"배선도\"라고 부르기도 함.", "- 커넥톰으로 알 수 있는 것: 누가 누구와 연결됐는지, 시냅스 개수, (신경전달물질로 추정한) 흥분/억제", "- 커넥톰으로 알 수 없는 것: 시간 상수, 휴지 전위, 실제 연결 세기", "- 이 논문은 커넥톰을 모델의 구조로 그대로 사용."]}, {"title": "커넥토믹스 (connectomics)", "category": "1. 신경과학 기초", "body": ["커넥톰을 만들고 분석하는 연구 분야."]}, {"title": "전기생리학 측정, 칼슘 이미징", "category": "1. 신경과학 기초", "body": ["뉴런 활동을 직접 재는 실험 방법.", "- 전기생리학 측정: 미세 전극을 뉴런에 꽂아 전압을 직접 기록", "- 칼슘 이미징: 뉴런이 활동할 때 세포 안 칼슘 농도가 올라가는 것을 형광 단백질로 보이게 해서 현미경으로 촬영", "- 둘 다 세포 유형마다 따로 실험해야 해서 시간과 비용이 많이 듦. 이 논문이 \"측정 없이 예측\"하려는 이유."]}, {"title": "세포 유형 (cell type)", "category": "1. 신경과학 기초", "body": ["모양, 연결 패턴, 기능이 같은 뉴런들의 묶음. 예: T4a, Mi1, L1.", "- 이 논문은 세포 유형 64개(광수용체 R1–R8 포함)를 다룸. 모델 내부에서는 CT1을 두 구획(CT1(Lo1), CT1(M10))으로 나눠 65개로 다루며, 유형마다 721개 또는 123개의 뉴런이 있음. 시간 상수·휴지 전위가 각각 65개인 이유."]}, {"title": "겹눈 (compound eye)", "category": "2. 초파리 시각계", "body": ["작은 눈(낱눈) 수백 개가 모여 만들어진 곤충의 눈. 낱눈 하나가 시야의 한 점을 담당하므로, 겹눈 전체는 육각형 픽셀로 된 카메라처럼 동작함."]}, {"title": "기둥 (column)", "category": "2. 초파리 시각계", "body": ["낱눈 하나에 대응하는 뇌 속 신경 회로 단위. 각 기둥에 같은 세포 유형 구성이 반복됨.", "- 이 모델은 721개 기둥을 육각 격자 위에 배치. 기둥마다 같은 회로가 반복되는 것이 파라미터 공유의 근거."]}, {"title": "육각 격자 (hexagonal lattice)", "category": "2. 초파리 시각계", "body": ["기둥들이 벌집 모양으로 배열된 구조. 좌표는 (u, v) 두 개의 축으로 표현.", "- 모델 입력도 일반 이미지(정사각 픽셀)가 아니라 721개 육각 픽셀."]}, {"title": "광수용체 (photoreceptor, R1–R8)", "category": "2. 초파리 시각계", "body": ["빛을 받아 전기 신호로 바꾸는 세포. 시각 정보의 입력 단계.", "- 모델에서 입력 자극은 광수용체에 들어감."]}, {"title": "시각엽 (optic lobe)", "category": "2. 초파리 시각계", "body": ["겹눈 뒤에 있는 시각 정보 처리 영역. 라미나, 메둘라, 로뷸라 등의 층으로 이루어짐.", "- 이 논문은 시각엽 중 움직임을 처리하는 경로를 모델링."]}, {"title": "ON 경로 / OFF 경로", "category": "2. 초파리 시각계", "body": ["- ON 경로: 빛이 밝아지는 변화를 처리하는 세포들 (예: Mi1, Tm3, T4)", "- OFF 경로: 빛이 어두워지는 변화를 처리하는 세포들 (예: Tm1, Tm9, T5)", "- 사람 망막에도 비슷한 구분이 있음."]}, {"title": "ON/OFF 극성 (polarity)", "category": "2. 초파리 시각계", "body": ["세포가 밝아짐(ON)과 어두워짐(OFF) 중 어디에 반응하는지. 논문 평가 항목 중 하나."]}, {"title": "움직임 감지 (motion detection)", "category": "2. 초파리 시각계", "body": ["시야에서 무언가가 어느 방향으로 움직이는지 계산하는 것. 한 지점의 밝기 변화와 이웃 지점의 밝기 변화가 시간 차이를 두고 일어나는 것을 비교해서 방향을 알아냄."]}, {"title": "T4 / T5 세포", "category": "2. 초파리 시각계", "body": ["초파리에서 움직임 방향을 감지하는 대표적인 세포.", "- T4: 밝은 가장자리(ON)의 움직임에 반응", "- T5: 어두운 가장자리(OFF)의 움직임에 반응", "- 각각 하위 유형 a, b, c, d가 있고, 하위 유형마다 앞→뒤, 뒤→앞, 위, 아래 중 한 방향만 담당. flyvis 기준 선호 방향: a 180°, b 0°, c 90°, d 270°."]}, {"title": "방향 선택성 (direction selectivity)", "category": "2. 초파리 시각계", "body": ["특정 방향의 움직임에만 강하게 반응하는 성질. T4, T5는 방향 선택적이고, Mi1, Tm3 등은 방향 선택적이지 않음."]}, {"title": "선호 방향 (preferred direction)", "category": "2. 초파리 시각계", "body": ["방향 선택적 세포가 가장 강하게 반응하는 움직임 방향."]}, {"title": "방향 튜닝 곡선 (tuning curve)", "category": "2. 초파리 시각계", "body": ["움직임 방향(가로축 또는 각도)별로 반응 크기를 그린 그래프. 극좌표로 그리면 선호 방향 쪽으로 튀어나온 모양이 됨.", "- 실측 곡선: Maisak et al. (2013), Nature 500."]}, {"title": "광류 (optical flow)", "category": "2. 초파리 시각계", "body": ["영상에서 각 위치가 다음 순간에 어느 방향으로 얼마나 움직이는지를 나타낸 벡터 지도. 위치마다 (가로 속도, 세로 속도) 두 값.", "- 이 논문의 학습 과제. 모델이 영상을 보고 광류를 맞히도록 학습함."]}, {"title": "DMN (Deep Mechanistic Network)", "category": "3. 논문의 모델", "body": ["이 논문의 모델 이름. \"Mechanistic\"은 실제 생물학적 구조(커넥톰)와 동작 원리(뉴런 전압 방정식)를 따른다는 뜻이고, \"Deep\"은 딥러닝 방식으로 학습한다는 뜻."]}, {"title": "연속시간 RNN (continuous-time recurrent neural network)", "category": "3. 논문의 모델", "body": ["상태가 미분방정식으로 시간에 따라 연속적으로 변하는 순환 신경망.", "- DMN의 식: τ · dV/dt = −V + V_rest + Σ w · ReLU(V_이웃) + 입력", "- 실제 계산은 시간을 작은 간격(dt)으로 쪼개 한 단계씩 진행 → 일반 RNN을 시간 축으로 펼친 것과 같은 구조."]}, {"title": "오일러 적분 (Euler method)", "category": "3. 논문의 모델", "body": ["미분방정식을 컴퓨터로 푸는 가장 단순한 방법. 다음 값 = 현재 값 + dt × 변화율.", "- 학습 시 dt = 20 ms (50 Hz)."]}, {"title": "은닉 상태 (hidden state)", "category": "3. 논문의 모델", "body": ["RNN이 시간 단계마다 기억하는 내부 값. 다음 단계 계산에 다시 쓰임.", "- DMN에서는 뉴런 45,669개의 전압."]}, {"title": "순환 가중치 행렬 (recurrent weight matrix)", "category": "3. 논문의 모델", "body": ["은닉 상태끼리 서로 영향을 주는 정도를 담은 행렬.", "- DMN에서는 커넥톰. 연결이 없는 곳은 0인 희소 행렬(연결 1,513,231개)."]}, {"title": "고정 파라미터 / 학습 파라미터", "category": "3. 논문의 모델", "body": ["- 고정: 연결 여부, 시냅스 개수 (커넥톰), 시냅스 부호 (신경전달물질 정보로 추정)", "- 학습: 시간 상수 65개 + 휴지 전위 65개 + 시냅스 세기 배율 604개 = 734개 (DMN만의 수. 디코더 파라미터 7,427개는 별도로 함께 학습)"]}, {"title": "파라미터 공유 (parameter sharing, weight sharing)", "category": "3. 논문의 모델", "body": ["여러 위치에서 같은 파라미터를 함께 쓰는 것. CNN이 이미지 모든 위치에 같은 필터를 쓰는 것이 대표적.", "- DMN은 같은 세포 유형이면 721개 기둥 어디에 있든 같은 시간 상수, 휴지 전위를 씀. 연결 세기도 \"세포 유형 A → 세포 유형 B\" 종류마다 하나."]}, {"title": "귀납적 편향 (inductive bias)", "category": "3. 논문의 모델", "body": ["학습 전에 모델 구조에 미리 넣어 둔 가정. 데이터만으로는 정해지지 않는 부분을 가정으로 채워서 적은 데이터로도 학습되게 함.", "- 예: CNN의 \"가까운 픽셀끼리 관련 있고, 같은 패턴은 어디서나 같다\"는 가정", "- DMN의 귀납적 편향: \"연결 구조는 커넥톰과 같고, 같은 세포 유형은 같은 성질을 가진다\""]}, {"title": "디코더 (decoder)", "category": "3. 논문의 모델", "body": ["모델 내부 상태를 읽어 원하는 출력으로 바꾸는 부분.", "- 이 논문의 디코더: DMN 출력 세포 유형 34개의 전압 → 광류. 5×5 육각 합성곱 2층(중간 8채널)의 작은 CNN. 학습 파라미터 7,427개 (DMN의 734개와 별도로 함께 학습)."]}, {"title": "육각 합성곱 (hexagonal convolution)", "category": "3. 논문의 모델", "body": ["육각 격자 위에서 하는 합성곱. 정사각 필터에서 육각형 모양 밖의 가중치를 0으로 가려(mask) 구현."]}, {"title": "앙상블 (ensemble)", "category": "3. 논문의 모델", "body": ["같은 문제를 푸는 모델 여러 개를 함께 쓰는 것. 결과를 평균 내거나, 모델 간 일치도로 신뢰도를 판단함.", "- 이 논문: 같은 설정으로 50개 모델 학습. 공개된 사전학습 모델이 이 50개."]}, {"title": "사전학습 모델 (pretrained model)", "category": "3. 논문의 모델", "body": ["이미 학습이 끝난 모델 파라미터. 재학습 없이 불러와 바로 사용 가능.", "- 논문 저자들이 50개 모델을 공개(flyvis). 재현과 추가 실험은 이 모델을 그대로 사용."]}, {"title": "flyvis", "category": "3. 논문의 모델", "body": ["논문의 공식 파이썬 라이브러리. 모델 정의, 학습 코드, 사전학습 모델, 평가 자극(깜빡임, 움직이는 가장자리 등), 비교용 실측 데이터가 들어 있음."]}, {"title": "과제 기반 학습 (task-driven learning)", "category": "4. 학습 방법", "body": ["모델이 어떤 과제를 잘 풀도록 학습시키고, 그 결과 내부 표현이 뇌와 비슷해지는지 보는 접근.", "- 이 논문: 광류 예측 과제로 학습 → 내부 뉴런이 실제 뉴런과 비슷하게 반응하는지 확인."]}, {"title": "대리 과제 (proxy task)", "category": "4. 학습 방법", "body": ["진짜 관심 대상(뉴런 반응)을 직접 학습하지 않고, 관련 있는 다른 과제(광류)로 학습하는 것."]}, {"title": "Sintel 데이터셋", "category": "4. 학습 방법", "body": ["애니메이션 단편 영화 \"Sintel\"로 만든 광류 데이터셋. 장면마다 정답 광류가 있어 광류 알고리즘 평가에 많이 쓰임.", "- 이 논문의 학습 데이터. 영상을 721개 육각 픽셀로 변환해 19프레임씩 사용."]}, {"title": "데이터 증강 (data augmentation)", "category": "4. 학습 방법", "body": ["학습 데이터를 변형해서 양을 늘리는 것. 과적합을 줄이고 일반화를 높임.", "- 이 논문: 상하좌우 뒤집기와 회전(확률 0.5), 대비·밝기 무작위 변화, 가우시안 잡음(σ 0.08), 무작위 시간 자르기."]}, {"title": "손실 함수 (loss function)", "category": "4. 학습 방법", "body": ["모델 예측이 정답과 얼마나 다른지를 숫자 하나로 나타낸 것. 학습은 이 값을 줄이는 방향으로 진행.", "- 이 논문: 예측 광류와 정답 광류의 L2 거리 + 뉴런 활동 정규화 항."]}, {"title": "L2 거리 (L2 norm)", "category": "4. 학습 방법", "body": ["두 벡터 차이의 제곱합의 제곱근. 일반적인 직선 거리."]}, {"title": "정규화 항 (regularization term)", "category": "4. 학습 방법", "body": ["손실에 더해서 모델이 원치 않는 방향으로 가지 않게 하는 항.", "- 이 논문: 뉴런 활동이 비정상적으로 커지지 않게 하는 항."]}, {"title": "역전파 (backpropagation)", "category": "4. 학습 방법", "body": ["출력의 오차를 거꾸로 전달하면서 각 파라미터가 오차에 얼마나 기여했는지(기울기)를 계산하는 방법."]}, {"title": "BPTT (Backpropagation Through Time, 시간 펼친 역전파)", "category": "4. 학습 방법", "body": ["RNN을 시간 단계마다 펼쳐 놓으면 층이 아주 많은 일반 신경망처럼 볼 수 있음. 여기에 역전파를 적용하는 것이 BPTT.", "- 이 논문: 19프레임에 걸친 DMN 시뮬레이션 전체를 펼쳐 734개 파라미터와 디코더의 기울기를 계산."]}, {"title": "경사 하강법 (gradient descent)", "category": "4. 학습 방법", "body": ["기울기의 반대 방향으로 파라미터를 조금씩 바꿔 손실을 줄이는 방법."]}, {"title": "Adam", "category": "4. 학습 방법", "body": ["경사 하강법의 한 종류. 파라미터마다 최근 기울기의 평균과 크기를 기억해서 학습 속도를 자동 조절함. 딥러닝에서 가장 많이 쓰는 최적화 방법 중 하나."]}, {"title": "배치 (batch), 반복 (iteration)", "category": "4. 학습 방법", "body": ["- 배치: 한 번 갱신할 때 사용하는 데이터 묶음. 이 논문은 4개.", "- 반복: 파라미터 갱신 횟수. 이 논문은 250,000번."]}, {"title": "체크포인트 (checkpoint)", "category": "4. 학습 방법", "body": ["학습 중간중간 저장한 모델 파라미터. 검증 손실이 가장 낮았던 체크포인트를 최종 모델로 사용."]}, {"title": "검증 손실 (validation loss)", "category": "5. 평가와 분석", "body": ["학습에 쓰지 않은 검증 데이터에서 계산한 손실. 모델이 처음 보는 데이터에서도 잘 하는지 확인하는 용도.", "- 이 논문: 학습 데이터를 4개 fold로 나누고 학습에 쓰지 않은 fold로 검증. \"과제 손실\", \"과제 오차\"라고도 부름."]}, {"title": "분포 밖 일반화 (out-of-distribution generalization)", "category": "5. 평가와 분석", "body": ["학습 데이터와 성질이 다른 데이터에서도 잘 동작하는 것.", "- 이 논문: 학습은 영화 장면 → 광류, 평가는 실험실 자극(깜빡임, 가장자리) → 뉴런 반응."]}, {"title": "깜빡임 자극 (flash stimulus)", "category": "5. 평가와 분석", "body": ["회색 화면 중앙에 원형 빛을 일정 시간 밝게 또는 어둡게 바꾸는 자극. ON/OFF 극성을 알아보는 데 씀."]}, {"title": "FRI (Flash Response Index)", "category": "5. 평가와 분석", "body": ["깜빡임 자극에 대한 반응으로 ON/OFF를 판단하는 지표.", "- FRI = (밝아질 때 최대 반응 − 어두워질 때 최대 반응) / (두 값의 합)", "- +1에 가까우면 ON 세포, −1에 가까우면 OFF 세포."]}, {"title": "움직이는 가장자리 (moving edge)", "category": "5. 평가와 분석", "body": ["화면의 밝은 부분과 어두운 부분의 경계가 한 방향으로 이동하는 자극. 밝은 가장자리(ON)와 어두운 가장자리(OFF)가 있음. 방향 선택성 측정에 씀."]}, {"title": "DSI (Direction Selectivity Index, 방향 선택성 지수)", "category": "5. 평가와 분석", "body": ["방향 선택성을 0~1 숫자로 나타낸 지표.", "- 방향마다 반응 크기를 길이로, 방향을 각도로 하는 벡터를 만들어 모두 더함", "- DSI = 더한 벡터의 길이 / 반응 크기의 합", "- 모든 방향에 똑같이 반응하면 벡터가 상쇄돼 0, 한 방향에만 반응하면 1", "- 더한 벡터의 방향 = 선호 방향"]}, {"title": "실측 데이터 (ground truth)", "category": "5. 평가와 분석", "body": ["실제 실험으로 측정해서 알려진 값. 모델 예측을 평가하는 기준.", "- flyvis에 포함된 비교 데이터: ON/OFF 극성이 알려진 24개 유형, 방향 선택성 여부가 알려진 18개 유형, T4/T5 튜닝 곡선."]}, {"title": "UMAP (Uniform Manifold Approximation and Projection)", "category": "5. 평가와 분석", "body": ["고차원 데이터를 2차원 같은 저차원으로 줄이는 비선형 차원 축소 방법. 가까운 데이터끼리는 줄인 뒤에도 가깝게 유지되도록 함. t-SNE와 비슷한 용도.", "- 이 논문: 세포 유형마다 50개 모델의 자연 영상 반응을 2차원으로 줄여, 비슷한 반응을 보이는 모델끼리 모이는지 확인."]}, {"title": "가우시안 혼합 모델 (Gaussian Mixture Model, GMM)", "category": "5. 평가와 분석", "body": ["데이터가 여러 개의 정규분포(가우시안)가 섞여서 생겼다고 보고, 각 점이 어느 분포에서 왔는지 추정하는 군집화 방법. K-평균과 비슷하지만 군집 모양이 타원형이어도 되고, 확률로 소속을 표현함.", "- 이 논문: UMAP으로 줄인 점들을 GMM으로 군집화."]}, {"title": "BIC (Bayesian Information Criterion)", "category": "5. 평가와 분석", "body": ["모델이 데이터를 얼마나 잘 설명하는지와 모델이 얼마나 복잡한지를 함께 고려한 점수. 낮을수록 좋음. 군집 수를 늘리면 데이터는 더 잘 맞지만 복잡해지므로, BIC로 적당한 군집 수를 고름.", "- 이 논문: 군집 수 2~5개 중 BIC가 가장 낮은 것을 선택."]}, {"title": "모델 선택 (model selection)", "category": "5. 평가와 분석", "body": ["여러 후보 모델 중 하나(또는 일부)를 고르는 것. 테스트 데이터로 고르면 테스트 성능이 부풀려지므로, 검증 데이터로 골라야 함.", "- 이 논문: 실측 뉴런 데이터 대신 과제 검증 손실로 모델을 고름."]}, {"title": "순위 상관 (Spearman 상관계수, ρ)", "category": "5. 평가와 분석", "body": ["두 변수의 값 자체가 아니라 순위끼리의 상관. −1~1. 한쪽이 클수록 다른 쪽이 작으면 음수.", "- 재현 결과: 과제 손실과 맞힌 하위 유형 수의 순위 상관 ρ = −0.32 (손실이 낮을수록 더 많이 맞힘)."]}, {"title": "RNN (Recurrent Neural Network, 순환 신경망)", "category": "6. 머신러닝 일반 개념", "body": ["이전 시간의 은닉 상태를 다음 시간 계산에 다시 쓰는 신경망. 시계열·영상처럼 순서가 있는 데이터를 처리."]}, {"title": "피드포워드 신경망 (feedforward neural network)", "category": "6. 머신러닝 일반 개념", "body": ["입력이 층을 한 방향으로 한 번 통과해 출력이 나오는 신경망. 이전 입력에 대한 기억(상태)이 없음. MLP, 일반 CNN이 여기에 해당.", "- RNN과의 차이: RNN은 이전 시점의 상태를 다음 계산에 다시 써서 시간에 따른 변화를 표현함. DMN이 RNN인 이유는 뉴런 전압이 이전 시점 전압과 이웃 뉴런의 이전 출력에 의존하기 때문."]}, {"title": "일반화 (generalization)", "category": "6. 머신러닝 일반 개념", "body": ["학습에 쓰지 않은 새로운 데이터에서도 잘 동작하는 능력. 머신러닝 모델 평가의 핵심. 학습 데이터 성능만 높고 새 데이터에서 낮으면 과적합.", "- 이 논문: 영화 장면으로 학습하고, 실험실 자극에 대한 뉴런 반응으로 평가. 학습 분포와 다른 데이터에서의 일반화(분포 밖 일반화)를 확인한 것."]}, {"title": "CNN (Convolutional Neural Network, 합성곱 신경망)", "category": "6. 머신러닝 일반 개념", "body": ["작은 필터를 입력 전체에 밀면서 같은 연산을 반복하는 신경망. 위치가 달라도 같은 패턴을 같은 방식으로 처리(가중치 공유)."]}, {"title": "활성화 함수 (activation function)", "category": "6. 머신러닝 일반 개념", "body": ["신경망의 각 유닛 출력에 적용하는 비선형 함수. 비선형이 있어야 복잡한 관계를 학습할 수 있음.", "- ReLU: max(0, x). 음수는 0, 양수는 그대로. DMN에서 \"전압이 0보다 클 때만 다음 뉴런에 신호를 보낸다\"는 의미.", "- Softplus: log(1 + eˣ). ReLU를 부드럽게 만든 함수. 디코더에서 사용.", "- 시그모이드: 1 / (1 + e⁻ˣ). 0~1 사이 값. 로지스틱 회귀의 출력.", "- 소프트맥스: 여러 클래스 점수를 합이 1인 확률로 바꾸는 함수. 다중 분류에 사용."]}, {"title": "과적합 (overfitting)", "category": "6. 머신러닝 일반 개념", "body": ["학습 데이터에는 잘 맞지만 새 데이터에서는 성능이 떨어지는 현상. 파라미터가 너무 많거나 데이터가 적을 때 생김."]}, {"title": "Dropout", "category": "6. 머신러닝 일반 개념", "body": ["학습 중 일부 유닛을 무작위로 꺼서(이 논문은 50%) 특정 유닛에 의존하지 않게 하는 과적합 방지 방법."]}, {"title": "BatchNorm (배치 정규화)", "category": "6. 머신러닝 일반 개념", "body": ["층의 출력을 배치 단위로 평균 0, 분산 1에 가깝게 맞추는 것. 학습을 안정시키고 빠르게 함."]}, {"title": "지도학습 / 비지도학습", "category": "6. 머신러닝 일반 개념", "body": ["- 지도학습: 정답(라벨)이 있는 데이터로 학습. 예: 광류 예측, 방향 분류", "- 비지도학습: 정답 없이 데이터 구조를 찾음. 예: UMAP, GMM 군집화"]}, {"title": "하이퍼파라미터 (hyperparameter)", "category": "6. 머신러닝 일반 개념", "body": ["학습으로 정해지지 않고 사람이 미리 정하는 값. 예: 학습률, 배치 크기, 정규화 세기 C, K-NN의 k."]}, {"title": "EEG (뇌파)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["두피에 붙인 전극으로 뇌의 전기 활동을 측정한 신호. 전극 하나가 그 아래 수많은 뉴런의 활동이 합쳐진 신호를 잼. 비침습적이지만 개별 뉴런 정보는 섞여 있음.", "- 추가 실험의 \"가상 EEG\": 모델 뉴런 전압을 구역별로 단순히 더한 신호. 두피·두개골에 의한 신호 왜곡은 반영하지 않음."]}, {"title": "디코딩 (decoding)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["신경 신호에서 자극이나 행동 정보를 거꾸로 알아내는 것. 예: 뇌 신호로 본 움직임 방향 맞히기.", "- 추가 실험: 세 종류 신호(65채널, 4채널, 1채널)로 막대 움직임 방향 8개를 분류."]}, {"title": "채널 (channel)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["따로 기록되는 신호 하나. EEG에서는 전극 하나."]}, {"title": "측정 잡음 (measurement noise)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["측정 장비나 환경 때문에 신호에 섞이는 원치 않는 값.", "- 추가 실험: 시뮬레이션은 잡음이 없어서, 채널마다 독립 가우시안 잡음(신호 표준편차의 0.1/0.5/1/2배)을 더함."]}, {"title": "우연 수준 (chance level)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["아무 정보 없이 찍었을 때 기대되는 정확도. 8방향 분류면 1/8 = 12.5%."]}, {"title": "특징 추출 (feature extraction)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["원본 신호에서 분류에 쓸 값을 뽑아내는 것.", "- 추가 실험의 시간 영역 특징: 채널마다 최고 전압, 최저 전압, 최고점까지 걸린 시간, 평균 전압."]}, {"title": "PSD (Power Spectral Density, 파워 스펙트럼 밀도)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["신호에 각 주파수 성분이 얼마나 강하게 들어 있는지를 나타낸 것. 진동하는 신호(예: 뇌파의 알파파)를 분석할 때 많이 씀.", "- 추가 실험: Welch 방법으로 6개 주파수 대역의 파워를 특징으로 씀. 뉴런 전압 반응은 진동보다 짧은 반응이라 시간 영역 특징보다 정확도가 낮았음."]}, {"title": "Welch 방법", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["신호를 겹치는 구간으로 나눠 각각 주파수 분석을 한 뒤 평균 내서 PSD를 안정적으로 추정하는 방법."]}, {"title": "특징 선택 (feature selection)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["가진 특징 중 분류에 쓸모 있는 것만 고르는 것.", "- 순차 전진 선택 (sequential forward selection): 아무것도 없는 상태에서 정확도를 가장 많이 올리는 특징을 하나씩 추가. 분류기 성능으로 특징을 평가하므로 래퍼(wrapper) 방식.", "- 추가 실험: 세포 유형(4개 특징 묶음) 단위로 선택."]}, {"title": "정규화 (normalization), z-score", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["특징마다 범위가 다르면 큰 값의 특징이 분류를 좌우하므로 범위를 맞추는 것. z-score = (값 − 평균) / 표준편차.", "- 평균과 표준편차는 학습 데이터에서만 계산해야 함(아니면 누수)."]}, {"title": "로지스틱 회귀 (logistic regression)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["특징의 가중합을 시그모이드(이진)나 소프트맥스(다중)로 확률로 바꿔 분류하는 선형 분류기. 단층 퍼셉트론과 같은 구조.", "- L2 정규화: 가중치 제곱합에 벌점을 줘서 가중치가 너무 커지지 않게 함(과적합 방지). C는 정규화 세기의 역수."]}, {"title": "K-NN (K-최근접 이웃)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["새 샘플과 가장 가까운 학습 샘플 k개의 다수결로 분류. 학습 단계가 거의 없는 비모수 방법."]}, {"title": "선형 SVM (Support Vector Machine)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["두 클래스 사이 경계와 가장 가까운 샘플 간 거리(마진)를 최대로 하는 선형 분류기."]}, {"title": "교차검증 (cross-validation)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["데이터를 여러 부분(fold)으로 나눠, 하나씩 돌아가며 테스트에 쓰고 나머지로 학습하는 평가 방법.", "- leave-one-speed-out: 추가 실험에서 속도 3개 중 하나를 테스트로 빼고 나머지 둘로 학습(3 fold). 같은 자극의 반복 측정이 학습과 테스트에 동시에 들어가지 않게 하기 위함.", "- nested CV (중첩 교차검증): 바깥 교차검증은 성능 평가만, 안쪽 교차검증(학습 데이터 안에서)은 특징 선택·하이퍼파라미터 선택만 담당."]}, {"title": "데이터 누수 (data leakage)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["테스트 데이터의 정보가 학습이나 모델 선택 과정에 들어가서 성능이 실제보다 높게 나오는 것.", "- 예: 전체 데이터로 정규화, 테스트 정답을 보고 특징 선택, 같은 자극의 반복 측정이 학습·테스트에 섞임", "- 추가 실험: 정답을 무작위로 섞은 데이터에서도 테스트 정답을 보고 특징을 고르면 22.4%(우연 12.5%)가 나옴."]}, {"title": "혼동 행렬 (confusion matrix)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["실제 클래스(행)와 예측 클래스(열)의 조합별 개수를 표로 나타낸 것. 어떤 클래스끼리 헷갈리는지 볼 수 있음."]}, {"title": "표집 편향 (sampling bias)", "category": "7. 추가 실험 관련 (신호처리, 검증)", "body": ["클래스별 샘플 수가 다르면 많은 클래스만 찍어도 정확도가 높게 나오는 문제.", "- 추가 실험: 8방향 모두 120개로 맞춤."]}];
+const pop = document.getElementById("pop");
+function esc(s) { return s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]); }
+function open(i) {
+  const g = G[i];
+  document.getElementById("pop-cat").textContent = g.category;
+  document.getElementById("pop-title").textContent = g.title;
+  document.getElementById("pop-body").innerHTML = g.body.filter(l => l.trim()).map(l => "<p>" + esc(l) + "</p>").join("");
+  pop.hidden = false;
+  document.getElementById("pop-close").focus();
+}
+function close() { pop.hidden = true; }
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-g]");
+  if (a) { e.preventDefault(); open(+a.dataset.g); return; }
+  if (e.target === pop) close();
+});
+document.getElementById("pop-close").onclick = close;
+document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+document.getElementById("theme").onclick = () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme === "dark" || (!r.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+  r.dataset.theme = dark ? "light" : "dark";
+};
+</script>
+</body>
+</html>
