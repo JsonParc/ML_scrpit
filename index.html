@@ -76,7 +76,6 @@ sup.fn a:hover, sup.fn a:focus-visible { text-decoration: underline; }
 #pop .close { border: none; border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; padding: 16px; font-size: 17px; width: 100%; }
 @media (max-width: 1100px) { .wrap { grid-template-columns: 1fr; } nav.toc { display: none; } }
 @media (max-width: 700px) { .fnlist { columns: 1; } }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 </style>
 </head>
 <body>
@@ -351,10 +350,20 @@ function mark() {
   for (const s of secs) if (s.getBoundingClientRect().top < 120) cur = s;
   chips.forEach(c => {
     const on = cur && c.dataset.n === cur.id.slice(1);
-    if (on && !c.classList.contains("on")) c.scrollIntoView({ inline: "center", block: "nearest" });
+    // 번호 줄만 가로로 움직인다. scrollIntoView를 쓰면 페이지 스크롤이 중간에 멈춘다.
+    if (on && !c.classList.contains("on")) bar.scrollTo({ left: c.offsetLeft - bar.clientWidth / 2 + c.clientWidth / 2 });
     c.classList.toggle("on", on);
   });
 }
+const bar = document.getElementById("chips");
+// 번호를 누르면 해당 구간으로 이동
+chips.forEach(c => c.addEventListener("click", e => {
+  const t = document.getElementById("s" + c.dataset.n);
+  if (!t) return;
+  e.preventDefault();
+  history.replaceState(null, "", "#s" + c.dataset.n);
+  t.scrollIntoView({ block: "start" });
+}));
 addEventListener("scroll", mark, { passive: true });
 mark();
 // 화면 켜짐 유지 (Wake Lock 지원 브라우저에서만)
